@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http‐equiv="X‐UA‐Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <link rel="icon" href="../static/icon/icon.ico">
+    <title>管理系统登录</title>
+    <style>
+    body,
+    html {
+        overflow: auto;
+        height: auto;
+        min-height: 100%;
+    }
+    
+    body {
+        background: url("../static/images/portalImages/071149ijadzjvdszjlsm9q.jpg");
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        padding-bottom: 40px;
+    }
+    
+    .login-form {
+        width: 505px;
+        margin: 180px auto 40px;
+        border-radius: 12px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        box-shadow: 0px 4px 9.5px 0.5px rgba(101, 101, 101, 0.25);
+        padding: 40px 40px 0;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        /* Firefox */
+        -webkit-box-sizing: border-box;
+        /* Safari */
+        position: relative;
+    }
+    
+    .login-form h3 {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
+    .login-form .am-form {
+        padding: 10px;
+        margin-top: 47px;
+    }
+    
+    .login-form .am-form>div {
+        margin-bottom: 20px;
+    }
+    
+    input {
+        display: block;
+        width: 100%;
+        height: 26px;
+        padding: 2px 4px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+    
+    .login-form input {
+        width: 73%;
+        height: 44px;
+        display: inline-block;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #cccccc;
+        border-radius: 4px;
+        background-color: rgba(221, 221, 221, 0);
+        margin-bottom: 10px;
+        padding-left: 50px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        /* Firefox */
+        -webkit-box-sizing: border-box;
+        /* Safari */
+    }
+    
+    .btn-div {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .btn {
+        border: none;
+        background: none;
+        outline: none;
+        box-shadow: none;
+        display: block;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #cccccc;
+        border-radius: 4px;
+        background-color: #38b4e6;
+        width: 76%;
+        height: 38px;
+        color: #fff;
+        line-height: 38px;
+        font-size: 18px;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+    
+    .login-form .am-form .user,
+    .login-form .am-form .pass {
+        position: relative;
+        text-align: center;
+    }
+    
+    .login-form .am-form .user i,
+    .login-form .am-form .pass i {
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        background: url(../static/images/user.gif) no-repeat center center;
+        border-right: 1px solid #ddd;
+    }
+    
+    .login-form .am-form .pass i {
+        background: url(../static/images/psw.gif) no-repeat center center;
+        display: inline-block;
+    }
+    
+    .login-form .hint {
+        width: 58%;
+        position: relative;
+        background: #ffebeb;
+        color: #e4393c;
+        border: 1px solid #faccc6;
+        padding: 3px 10px 3px 36px;
+        line-height: 18px;
+        min-height: 18px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        margin: 13px 0 0 65px;
+        font-size: 10px;
+        display: none;
+        position: absolute;
+        top: 109px;
+    }
+    
+    .login-form .hint i {
+        position: absolute;
+        top: 4px;
+        left: 14px;
+        display: inline-block;
+        width: 21px;
+        height: 16px;
+        background: url(../static/images/login-error.png) no-repeat left center;
+    }
+    
+    .login-form .am-form .user em,
+    .login-form .am-form .pass em {
+        position: absolute;
+        top: 12px;
+        right: 38px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: url(../static/images/true.png) no-repeat;
+        background-size: 100%;
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="login-form">
+        <h3>管理系统登录</h3>
+        <hr style="margin-bottom:18px;">
+        <div class="hint"><i></i><span>请输入正确的账号和密码</span></div>
+        <div class="am-form">
+            <div class="user">
+                <i></i>
+                <input type="text" name="" id="email" value="" placeholder="请输入账号" onkeydown="Kdown(event);">
+                <em class="user-true"></em>
+            </div>
+            <div class="pass">
+                <i></i>
+                <input type="password" name="" id="password" value="" placeholder="请输入密码" onkeydown="Kdown(event);">
+                <em class="password-true"></em>
+            </div>
+            <div class="btn-div">
+                <button class="btn" id="btn" onclick="login()">登 录</button>
+            </div>
+        </div>
+    </div>
+    <script src="../static/thirdParty/js/zepto.min.js"></script>
+    <script>
+    function login() {
+        var username = $.trim($('#email').val());
+        var password = $.trim($('#password').val());
+        if (username != "" && password != "") {
+            /*$.ajax({
+                url: getProjectName()+'/sysUser/validateLogin',
+                type: "post",
+                dataType: 'json',
+                data: {
+                    username: username,
+                    password: password
+                },
+                beforeSend:function(){
+                    $("#btn").text("登录中...");
+                },
+                success: function(data) {
+                    if (data.code == 0) {
+                        window.location.href = "platformManageIndex.html";
+                    } else {
+                        $('.hint').css('display', 'block');
+                        $('.hint span').text(data.message);
+                        $("#btn").text("登录");
+                        return false;
+                    }
+                },
+                error:function(){
+                    $("#btn").text("登录");
+                    alert("登录失败，请联系客服！");
+                }
+            });*/
+            window.location.href = "index.html";
+        } else {
+            if (username == "") {
+                $('.hint').css('display', 'block');
+                $('.hint span').text('账户名不能为空');
+                return false;
+            }
+            if (password == "") {
+                $('.hint').css('display', 'block');
+                $('.hint span').text('密码不能为空');
+                return false;
+            }
+
+        }
+
+    }
+
+    function Kdown(event) {
+        if (event.keyCode == 13) {
+            login();
+        }
+    }
+    function getProjectName(){
+        var pathName=window.document.location.pathname; 
+        var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1); 
+        return projectName;
+    }
+    </script>
+</body>
+
+</html>

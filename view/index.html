@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app="backHomeApp" ng-controller="indexController">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http‐equiv="X‐UA‐Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="format-detection" content="telephone=no" />
+    <title>后台管理</title>
+    <link rel="icon" href="../static/icon/icon.ico">
+    <link rel="stylesheet" type="text/css" href="../static/thirdParty/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/backHome/common.css"> 
+    <script src="../static/thirdParty/js/jquery-2.1.1.min.js"></script>
+    <script src="../static/thirdParty/js/angular.js"></script>
+    <script src="../static/thirdParty/js/ui-bootstrap-tpls.js"></script>
+    <script src="../static/thirdParty/js/angular-ui-router.js"></script>
+    <script src="../static/thirdParty/js/angular-locale_zh-cn.js"></script>
+</head>
+
+<body>
+    <div id="loading" ng-class="{'none':loading}">
+        <div class="load-wrap">
+            <div class="load-img"></div>
+        </div>
+    </div>
+    <div class="container-fluid remove-padding">
+        <!-- 头部 -->
+        <div class="top-container">
+            <div class="logo text-left">
+                <a href="#/home" class="logo"><img src="../static/images/portalImages/cbzxlogo1.png" alt=""></a>
+            </div>
+            <div class="base-info text-right">
+                <div class="btn-group" uib-dropdown keyboard-nav>
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                    <span class="glyphicon glyphicon-user"></span>&nbsp;<span>管理员</span><span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                        <li role="menuitem" ng-click="changePassword()">
+                            <a href="javascript:void(0)"><span class="glyphicon glyphicon-wrench top-3"></span>&nbsp;密码修改</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li role="menuitem"><a href="javascipt:void(0);" ng-click="getOut()"><span class="glyphicon glyphicon-off top-3"></span>&nbsp;退出</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="menc" class="left-container">
+            <div class="menc-toggle">
+                <span class="glyphicon glyphicon-chevron-left" toggle-menc mencid="menc" contentid="container"></span>
+            </div>
+            <ul>
+                <!-- <li class="menc">
+                    <a href="javascript:void(0)" ng-click="clickChildMenc('/home')">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span>主页</span>
+                    </a>
+                </li> -->
+                <li class="menc" ng-repeat="menc in datas" ng-class="{'open-child':menc.active}">
+                    <a href="javascript:void(0)" ng-click="toggleMenc(menc)">
+                        <span ng-class="menc.icon"></span>
+                        <span ng-bind="menc.name"></span>
+                        <span ng-if="menc.children.length>0">
+                            <span class="glyphicon  toggle" ng-class="{'glyphicon-menu-up':menc.child_open,'glyphicon-menu-down':!menc.child_open}"></span>
+                        </span>
+                    </a>
+                    <ul class="child-menc" ng-if="menc.children" ng-show="menc.child_open">
+                        <li ng-repeat="child_menc in menc.children" ng-click="clickChildMenc(menc,child_menc)" ng-class="{'active':child_menc.active}">
+                            <a href="javascript:void(0)">
+                                <span ng-bind="child_menc.name"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="container" class="right-container">
+            <div ui-view class="container-fluid  remove-padding" xy-maxheight></div>
+        </div>
+        <div class="bottom-container"></div>
+    </div>
+    <div></div>
+</body>
+<!-- 开发js -->
+<script src="../static/js/backHome/ngConfig.js"></script>
+<script src="../static/js/common/ngDirective.js"></script> 
+<script src="../static/js/common/ngFilter.js"></script>
+<script src="../static/js/common/ngPublicService.js"></script>
+<script src="../static/js/backHome/ngFilter.js"></script>
+<script src="../static/js/backHome/ngBusinessService.js"></script>
+<script src="../static/js/backHome/ngController.js"></script>
+</html>

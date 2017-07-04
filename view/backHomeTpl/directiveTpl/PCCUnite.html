@@ -1,0 +1,21 @@
+<div ng-class="{'col-lg-4':!hide_county&&!hide_city,'col-lg-6':hide_county&&!hide_city,'col-lg-12':hide_county&&hide_city}" class="remove-padding">
+    <div class="input-group input-group-sm" style="width:100%;">
+        <select class="form-control" ng-change="chooseProvince()" ng-model="province" ng-options="province.name for province in provinces">
+            <option value="">省</option>
+        </select>
+    </div>
+</div>
+<div ng-class="{'col-lg-4':!hide_county&&!hide_city,'col-lg-6':hide_county}" ng-hide="hide_city" class="remove-padding">
+    <div class="input-group input-group-sm" style="width:100%;">
+        <select class="form-control" ng-model="city" ng-change="chooseCity()" ng-options="city.name for city in citys">
+            <option value="">市</option>
+        </select>
+    </div>
+</div>
+<div class="col-lg-4 remove-padding" ng-hide="hide_county">
+    <div class="input-group input-group-sm" style="width:100%;">
+        <select class="form-control" ng-model="county" ng-options="county.name for county in countys" ng-change="chooseCounty()">
+            <option value="">区/县</option>
+        </select>
+    </div>
+</div>

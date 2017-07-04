@@ -1,0 +1,39 @@
+    <div class="content_wrapper provinces" ng-show="show_province">
+        <nav class="title">
+            <a class="nav-back" href="javascript:;" ng-click="backValid()">
+                <img src="../static/images/back.png">
+            </a>
+            <div>地址</div>
+        </nav>
+        <div class="weui_cells weui_cells_access" >
+            <a class="weui_cell" href="javascript:;" ng-repeat="province in provinces"  ng-click="chooseProvince(province)">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>{{ province.name }}</p>
+                </div>
+                <div class="weui_cell_ft">
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="content_wrapper provinces" ng-show="show_city">
+        <div class="weui_cells weui_cells_access" >
+            <a class="weui_cell" href="javascript:;" ng-repeat="city in citys" ng-click="chooseCity(city)">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>{{ city.name }}</p>
+                </div>
+                <div class="weui_cell_ft">
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="content_wrapper provinces" ng-show="show_country">
+        <div class="weui_cells weui_cells_access" >
+            <a class="weui_cell" href="javascript:;" ng-repeat="country in countrys" ng-click="chooseCountry(country)">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>{{ country.name }}</p>
+                </div>
+                <div class="weui_cell_ft">
+                </div>
+            </a>
+        </div>
+    </div>
