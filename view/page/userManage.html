@@ -1,7 +1,7 @@
-<div ng-controller="customerManageCtrl">
+<div ng-controller="userManageCtrl">
     <ol class="breadcrumb">
-        <!-- <li><a href="javascript:void(0)">系统管理</a></li> -->
-        <li>客户管理</li>
+        <li><a href="javascript:void(0)">系统管理</a></li>
+        <li>用户管理</li>
     </ol>
     <div class="content-container">
         <div class="query">
@@ -37,6 +37,11 @@
                             <button class="btn btn-success query-btn" ng-click="add()">添加</button>
                         </div>
                     </div>
+                    <div class="col-lg-1">
+                        <div class="input-group input-group-sm text-right">
+                            <button class="btn btn-danger query-btn" ng-click="delete()">删除</button>
+                        </div>
+                    </div>
                     <div class="col-lg-1 pull-right">
                         <div class="input-group input-group-sm pull-right">
                             <button class="btn btn-default btn-sm pull-right" ng-click="clearQuery()">
@@ -61,28 +66,26 @@
             </div>
         </div>
         <div class="datagrid">
-            <table class="table table-bordered" ng-show="data.length > 0">
+            <table class="table table-bordered" ng-show="data.length > 0" check-all-box>
                 <tr>
                     <th style="width:5%;">序号</th>
+                    <th style="width:5%;"><input type="checkbox" ng-model="all_checked" ng-change="checkAll()" /></th>
                     <th style="width:12%;">客户名称</th>
                     <th style="width:18%;">店面名称</th>
                     <th style="width:12%;">车贷金额</th>
                     <th style="width:13%;">期数</th>
                     <th style="width:12%;">终审结果</th>
-                    <th style="width:20%;">操作</th>
                 </tr>
-                <tr ng-repeat="key in data" ng-class="{'bg-info' : key.selected}">
+                <tr ng-repeat="key in data" ng-click="checkRow(key)" ng-class="{'bg-info' : key.selected}">
                     <td>{{$index+1+(conditions.page-1)*conditions.rows}}</td>
+                    <td>
+                        <input type="checkbox" ng-model="key.checked" ng-click="checkBox(key,$event)" />
+                    </td>
                     <td>{{key.name}}</td>
                     <td>{{key.storeName}}</td>
                     <td>{{key.money}}</td>
                     <td>{{key.periods}}</td>
                     <td>{{key.result | getGesult}}</td>
-                    <td>
-                        <button class="btn btn-success btn-sm" ng-click="update(key)"><span class="glyphicon glyphicon-pencil top-2 right-2"></span>修改</button>
-                        <button class="btn btn-danger btn-sm" ng-click="delete(key.id)"><span class="glyphicon glyphicon-remove top-2 right-2"></span>删除</button>
-                        <button class="btn btn-primary btn-sm" ng-click="detail(key)"><span class="glyphicon glyphicon-glass top-2 right-2"></span>详情</button>
-                    </td>
                 </tr>
             </table>
             <div ng-show="data.length == 0" class="alert alert-warning">

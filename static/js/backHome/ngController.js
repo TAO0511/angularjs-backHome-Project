@@ -205,3 +205,148 @@ backHomeApp.controller('customerManageCtrl', ['$scope', "DPUtil", "customerServi
         }; //end _fn
     }
 ]);
+/*-------------------------------------------用户管理--------------------------------*/
+backHomeApp.controller('userManageCtrl', ['$scope', "DPUtil", "customerService",  "$uibModal", "UIUtil",
+    function($scope, DPUtil, customerService, $uibModal, UIUtil) {
+        $scope.conditions = {};//查询的参数
+        // 初始化分页组件
+        DPUtil.initPage($scope,$scope.conditions);
+        /**
+         * [query 查询]
+         */
+        $scope.query = function() {
+            customerService.list($scope.conditions).then(function(data) {
+                $scope.data = data.rows;
+                $scope.total = data.total;
+            });
+        };
+        $scope.query();
+        /**
+         * [changePageSize 分页数量]
+         */
+        $scope.changePageSize = function() {
+            $scope.conditions.rows = $scope.page_size.value;
+            $scope.conditions.page = 1;
+            $scope.query();
+        };
+
+        $scope.clearQuery = function(){
+            DPUtil.cleanQuery($scope.conditions);
+        }
+
+        /**
+         * [add 新增]
+         */
+        $scope.add = function() {
+            _fn.showAdd();
+        };
+
+        /**
+         * [update]
+         */
+        $scope.update = function(data) {
+            _fn.showUpdate(data);
+        };
+        /**
+         * [detail]
+         */
+        $scope.detail = function(data) {
+            _fn.showDetail(data);
+        };
+        /**
+         * [del 删除]
+         */
+        $scope.delete = function() {
+            if (!DPUtil.getChecked($scope.data).length) {
+                UIUtil.alert({content:"请至少选择一项"});
+                return false;
+            }
+            UIUtil.comfirm({
+                content: "是否删除选定的账号？",
+                ok: function() {
+                    UIUtil.alert({ content: "删除成功！" });
+                }
+            });
+        };
+
+        /**
+         * [_fn 私有方法对象]
+         * @type {Object}
+         */
+        var _fn = {
+            /**
+             * [showAdd 显示新增窗口]
+             * @return {[type]} [description]
+             */
+            showAdd: function() {
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: 'add.html',
+                    keyboard: false,
+                    backdrop: 'static',
+                    size: "lg",
+                    controller: ["$scope", "$uibModalInstance",
+                        function(add_scope, uibModal) {
+                            add_scope.title = "新增";
+                            add_scope.cancel = function(){
+                                uibModal.close();
+                            }
+                            add_scope.ok = function(){
+                                uibModal.close();
+                            }
+                        }
+                    ]
+                });
+            },
+            /**
+             * [showUpdate 显示修改窗口]
+             * @param  {[type]} data [修改对象的数据]
+             * @return {[type]}      [description]
+             */
+            showUpdate: function(data) {
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: 'add.html',
+                    keyboard: false,
+                    backdrop: 'static',
+                    size: "lg",
+                    controller: ["$scope", "$uibModalInstance",
+                        function(update_scope, uibModal) {
+                            update_scope.title = "修改";
+                            update_scope.customer = data;
+                            update_scope.cancel = function(){
+                                uibModal.close();
+                            }
+                            update_scope.ok = function(){
+                                uibModal.close();
+                            }
+                        }
+                    ]
+                });
+            },
+            /**
+             * [showDetail 显示修改窗口]
+             * @param  {[type]} data [修改对象的数据]
+             * @return {[type]}      [description]
+             */
+            showDetail: function(data) {
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: 'detail.html',
+                    keyboard: false,
+                    backdrop: 'static',
+                    size: "md",
+                    controller: ["$scope", "$uibModalInstance",
+                        function(detail_scope, uibModal) {
+                            detail_scope.title = "详情";
+                            detail_scope.customer = data;
+                            detail_scope.cancel = function(){
+                                uibModal.close();
+                            }
+                        }
+                    ]
+                });
+            }
+        }; //end _fn
+    }
+]);

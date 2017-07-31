@@ -6,6 +6,36 @@
         "money":10000000,
         "periods":"36期",
         "result":1
+    },{
+        "name":"李亚龙",
+        "storeName":"广物德远店",
+        "money":10000000,
+        "periods":"36期",
+        "result":1
+    },{
+        "name":"李亚龙",
+        "storeName":"广物德远店",
+        "money":10000000,
+        "periods":"36期",
+        "result":1
+    },{
+        "name":"李亚龙",
+        "storeName":"广物德远店",
+        "money":10000000,
+        "periods":"36期",
+        "result":1
+    },{
+        "name":"李亚龙",
+        "storeName":"广物德远店",
+        "money":10000000,
+        "periods":"36期",
+        "result":2
+    },{
+        "name":"李亚龙",
+        "storeName":"广物德远店",
+        "money":10000000,
+        "periods":"36期",
+        "result":0
     }],
-    "total": 1
+    "total": 6
 }

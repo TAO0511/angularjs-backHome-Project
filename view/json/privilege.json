@@ -23,7 +23,7 @@
     {
         "id": "user_manage",
         "name": "用户管理",
-        "url": "customerManage",
+        "url": "userManage",
         "type": "2",
         "paixu": 1,
         "parent": "system_manage"

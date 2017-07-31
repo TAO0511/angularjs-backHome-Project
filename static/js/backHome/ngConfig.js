@@ -14,21 +14,22 @@ backHomeApp.run(['$rootScope', '$location','userService',
                 userService.myPrivilegeList().then(function(data) {
                 $rootScope.datas = data;
                 $rootScope.mencs = [];
-                for (var i = 0; i < data.data.length; i++) {
-                    for (var j = 0; j < data.data[i].children.length; j++) {
-                        $rootScope.mencs.push(data.data[i].children[j].url);
-                        if ("/"+data.data[i].children[j].url == next.url) {
+                for (var i = 0; i < data.length; i++) {
+                    $rootScope.mencs.push(data[i].url);
+                    for (var j = 0; j < data[i].children.length; j++) {
+                        $rootScope.mencs.push(data[i].children[j].url);
+                        if ("/"+data[i].children[j].url == next.url) {
                             is_can = true;
-                            data.data[i].active = true;
-                            data.data[i].current = true;
-                            data.data[i].child_open = true;
-                            data.data[i].children[j].active = true;
+                            data[i].active = true;
+                            data[i].current = true;
+                            data[i].child_open = true;
+                            data[i].children[j].active = true;
                         }
                     }
-                    if ("/"+data.data[i].url == next.url) {
+                    if ("/"+data[i].url == next.url) {
                         is_can = true;
-                        data.data[i].active = true;
-                        data.data[i].current = true;
+                        data[i].active = true;
+                        data[i].current = true;
                     }
                 }
                 if (!is_can) {
@@ -36,9 +37,6 @@ backHomeApp.run(['$rootScope', '$location','userService',
                 }
                 });
             } else {
-                if (threeRoot(next.url)) {
-                    is_can = true;
-                }
                 for (var i = 0; i < $rootScope.mencs.length; i++) {
                     if ("/"+$rootScope.mencs[i] == next.url) {
                         is_can = true;
@@ -62,6 +60,10 @@ backHomeApp.config(function($stateProvider, $urlRouterProvider) {
         .state('customerManage', {
             url: "/customerManage",
             templateUrl: "page/customerManage.html"
+        })
+        .state('userManage', {
+            url: "/userManage",
+            templateUrl: "page/userManage.html"
         })
 });
 
