@@ -32,7 +32,7 @@
         <!-- 头部 -->
         <div class="top-container">
             <div class="logo text-left">
-                <a href="#/home" class="logo"><img src="../static/images/portalImages/cbzxlogo1.png" alt=""></a>
+                <a href="#/home" class="logo"></a>
             </div>
             <div class="base-info text-right">
                 <div class="btn-group" uib-dropdown keyboard-nav>
@@ -61,7 +61,7 @@
                     </a>
                 </li> -->
                 <li class="menc" ng-repeat="menc in datas" ng-class="{'open-child':menc.active}">
-                    <a href="javascript:void(0)" ng-click="toggleMenc(menc)">
+                    <a href="javascript:void(0)" ng-click="toggleMenc(menc)" ng-class="{'selected-item':menc.active && !menc.child_open}">
                         <span ng-class="menc.icon"></span>
                         <span ng-bind="menc.name"></span>
                         <span ng-if="menc.children.length>0">
@@ -69,7 +69,7 @@
                         </span>
                     </a>
                     <ul class="child-menc" ng-if="menc.children" ng-show="menc.child_open">
-                        <li ng-repeat="child_menc in menc.children" ng-click="clickChildMenc(menc,child_menc)" ng-class="{'active':child_menc.active}">
+                        <li ng-repeat="child_menc in menc.children" ng-click="clickChildMenc(menc,child_menc)" ng-class="{'active':child_menc.active,'selected-item':child_menc.active}">
                             <a href="javascript:void(0)">
                                 <span ng-bind="child_menc.name"></span>
                             </a>

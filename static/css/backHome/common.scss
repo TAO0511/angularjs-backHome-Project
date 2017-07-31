@@ -3,7 +3,7 @@ $baseFontSize:20px;
 @function pxToRem($px) {
     @return $px / $baseFontSize * 1rem;
 }
-
+$blueColor:#438eb9;
 html {
     font-size: 20px;
     min-height: 100%;
@@ -96,7 +96,7 @@ li {
     padding: 0;
     margin: 0;
 }
-
+.blue-color{color:$blueColor;}
 .no-border {
     border: none !important;
 }
@@ -170,7 +170,9 @@ li {
 .modal-sg {
     width: 52rem;
 }
-
+.modal-min-height{
+    min-height: 10rem;
+}
 .modal-pw {
     width: 22rem;
 }
@@ -256,11 +258,9 @@ table tr:hover {
 .top-2 {
     top: 2px;
 }
-
-.top-3 {
-    top: 3px;
+.right-2{
+    right: 2px !important;
 }
-
 .fixed-table {
     table-layout: fixed !important;
 }
@@ -343,11 +343,11 @@ table tr:hover {
 
 //***************************图标
 .select {
-    background: url(../../images/memberCenter/select.png);
+    background: url(../../images/select.png);
 }
 
 .unselect {
-    background: url(../../images/memberCenter/unselect.png);
+    background: url(../../images/unselect.png);
 }
 
 .select,
@@ -377,6 +377,9 @@ table tr:hover {
     }
     .row:last-child {
         margin-bottom: 0;
+    }
+    .query-btn{
+        padding:4px 14px;
     }
 }
 
@@ -443,6 +446,16 @@ table tr:hover {
             color: #2b7dbc;
         }
     }
+    .selected-item:after{
+        border-top:8px solid transparent;
+        border-bottom:8px solid transparent;
+        border-right:8px solid $blueColor;
+        content: "";
+        height: 0;
+        width: 0;
+        position:absolute;
+        right: 0px;
+    }
     .open-child {
         background: #fff;
         >a {
@@ -479,7 +492,7 @@ table tr:hover {
         }
         .toggle {
             position: absolute;
-            right: 0.4rem;
+            right: 0.6rem;
             top: 0.5rem;
         }
     }
@@ -578,160 +591,3 @@ table tr:hover {
     }
 }
 
-
-/* ******************************角色-人员管理 */
-
-.user-role {
-    .select-box {
-        display: inline-block;
-        width: 1rem;
-        height: 1rem;
-        span {
-            float: left;
-            margin-top: 0.45rem;
-            width: 70%;
-        }
-    }
-}
-// 备注
-.beizhutishi {
-    position: relative;
-    cursor: pointer;
-}
-
-.beizhutishi .tishi {
-    background: #fff;
-    position: absolute;
-    bottom: 38px;
-    left: 50%;
-    margin-left: -135px;
-    z-index: 1060;
-    max-width: 276px;
-    min-width: 265px;
-    min-height: 60px;
-    padding: 1px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, .2);
-    border-radius: 6px;
-    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-    word-wrap: break-word;
-    word-break: normal;
-    text-align: center;
-}
-
-.beizhutishi .tishi .arrow,
-.beizhutishi .tishi .arrow:after {
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
-}
-
-.beizhutishi .tishi .arrow {
-    bottom: -22px;
-    left: 50%;
-    margin-left: -11px;
-    border-top-color: #999;
-    border-top-color: rgba(0, 0, 0, .25);
-    border-bottom-width: 0;
-    border-width: 11px;
-}
-
-.beizhutishi .tishi .content {
-    padding: 10px;
-    word-wrap: break-word;
-    word-break: normal;
-}
-
-.beizhutishi .overflow {
-    height: 20px;
-    overflow: hidden;
-    display: inline-block;
-}
-
-.new-tag {
-    margin-top: 10px;
-    a {
-        line-height: 34px !important;
-        padding: 4px !important;
-    }
-}
-
-.sign-input {
-    margin-left: pxToRem(20px);
-    margin-top: pxToRem(10px);
-    margin-bottom: pxToRem(10px);
-}
-
-.sign-btn {
-    margin: pxToRem(40px);
-}
-
-.title-tab {
-    ul {
-        line-height: pxToRem(40px);
-        border-bottom: 1px solid #e7e7eb;
-        li {
-            float: left;
-            padding: 0 pxToRem(18px);
-            cursor: pointer;
-        }
-        li.selected {
-            border-bottom: 3px solid #438eb9;
-        }
-    }
-}
-
-.input-tip {
-    height: 34px;
-    line-height: 34px;
-}
-
-.white-text {
-    color: #8d8d8d;
-}
-
-.message-body .tab-contents {
-    min-height: 300px;
-}
-
-.photo-content {
-    width: 250px;
-    height: 250px;
-    margin: 20px;
-    border: 3px dashed #e6e6e6;
-    margin: 10px auto;
-    background: url(../../images/backHome/photo.png) center center no-repeat;
-}
-//产品管理
-.minus{
-    position: absolute;top: -2px;right: -2px;cursor: pointer;font-size: 16px;
-}
-.info_bd {
-    position: relative;
-    .sub_title {
-        clear: both;
-        position: relative;
-        z-index: 7;
-        margin: 10px 10px 10px 0px;
-        padding-left: 3px;
-        border-left: 4px solid #438eb9;
-        font-size: 14px;
-        height: 14px;
-        line-height: 14px;
-        font-weight: normal;
-        text-align: left;
-    }
-}
-.btn-selected{
-         border: 1px solid #438eb9;
-        /* background-color:#438eb9;
-        color:#FFF; */
-}

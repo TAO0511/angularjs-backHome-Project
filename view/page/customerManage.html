@@ -9,15 +9,32 @@
                 <form>
                     <div class="col-lg-2">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" ng-model="role.kehumingcheng" placeholder="客户名称">
+                            <input type="text" class="form-control" ng-model="conditions.kehumingcheng" placeholder="客户名称">
                         </div>
                     </div>
                     <div class="col-lg-2">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" ng-model="role.pinpaimingcheng" placeholder="品牌名称">
-                            <span class="input-group-btn">
-                <button class="btn btn-default" type="submit" ng-click="query()"><span class="glyphicon glyphicon-search"></span></button>
-                            </span>
+                            <input type="text" class="form-control" ng-model="conditions.pinpaimingcheng" placeholder="品牌名称">
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="input-group input-group-sm">
+                            <select class="form-control" ng-model="conditions.result">
+                                <option value="">终审结果</option>
+                                <option value="1">通过</option>
+                                <option value="2">拒绝</option>
+                                <option value="0">待定</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="input-group input-group-sm text-right">
+                            <button class="btn btn-primary query-btn" ng-click="query()">查询</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="input-group input-group-sm text-right">
+                            <button class="btn btn-success query-btn" ng-click="add()">添加</button>
                         </div>
                     </div>
                     <div class="col-lg-1 pull-right">
@@ -28,13 +45,6 @@
                         </div>
                     </div>
                 </form>
-            </div>
-            <div class="row removepadding">
-                <div class="col-lg-6">
-                    <button class="btn btn-primary btn-sm two-btn" ng-click="add()">新增</button>
-                    <!-- <button class="btn btn-success btn-sm two-btn" ng-click="update()">修改</button>
-                    <button class="btn btn-danger btn-sm two-btn" ng-click="del()">删除</button> -->
-                </div>
             </div>
         </div>
         <div class="row page-result" ng-show="data.length > 0">
@@ -47,28 +57,32 @@
                     <select ng-change="changePageSize()" class="form-control input-sm" ng-options="option.name for option in page_size_arr track by option.value" ng-model="page_size">
                     </select>
                 </div>
-                <ul uib-pagination total-items="total" ng-model="role.page" max-size="5" class="pagination-sm pull-right" boundary-link-numbers="true" previous-text="上一页" next-text="下一页" items-per-page="role.rows" ng-change="query()"></ul>
+                <ul uib-pagination total-items="total" ng-model="conditions.page" max-size="5" class="pagination-sm pull-right" boundary-link-numbers="true" previous-text="上一页" next-text="下一页" items-per-page="conditions.rows" ng-change="query()"></ul>
             </div>
         </div>
         <div class="datagrid">
             <table class="table table-bordered" ng-show="data.length > 0" simple-select>
                 <tr>
                     <th style="width:5%;">序号</th>
-                    <th style="width:17%;">客户名称</th>
+                    <th style="width:12%;">客户名称</th>
                     <th style="width:18%;">店面名称</th>
-                    <th style="width:15%;">车辆型号</th>
                     <th style="width:12%;">车贷金额</th>
                     <th style="width:13%;">期数</th>
                     <th style="width:12%;">终审结果</th>
+                    <th style="width:20%;">操作</th>
                 </tr>
-                <tr ng-repeat="customer in data" ng-click="selectRow(customer)" ng-class="{'bg-info' : customer.selected}">
-                    <td>{{customer.number}}</td>
-                    <td>{{customer.kehumingcheng}}</td>
-                    <td>{{customer.dianmianmingcheng}}</td>
-                    <td>{{customer.xinghao}}</td>
-                    <td>{{customer.chedaijine}}</td>
-                    <td>{{customer.qishu}}</td>
-                    <td>{{customer.zhongshenjieguo | zhongshenjieguo}}</td>
+                <tr ng-repeat="key in data" ng-click="selectRow(key)" ng-class="{'bg-info' : key.selected}">
+                    <td>{{$index+1+(conditions.page-1)*conditions.rows}}</td>
+                    <td>{{key.name}}</td>
+                    <td>{{key.storeName}}</td>
+                    <td>{{key.money}}</td>
+                    <td>{{key.periods}}</td>
+                    <td>{{key.result | getGesult}}</td>
+                    <td>
+                        <button class="btn btn-success btn-sm" ng-click="update(key)"><span class="glyphicon glyphicon-pencil top-2 right-2"></span>修改</button>
+                        <button class="btn btn-danger btn-sm" ng-click="delete(key.id)"><span class="glyphicon glyphicon-remove top-2 right-2"></span>删除</button>
+                        <button class="btn btn-primary btn-sm" ng-click="detail(key)"><span class="glyphicon glyphicon-glass top-2 right-2"></span>详情</button>
+                    </td>
                 </tr>
             </table>
             <div ng-show="data.length == 0" class="alert alert-warning">
@@ -83,7 +97,7 @@
 <script type="text/ng-template" id="add.html">
     <div class="modal-header">
         <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h3 class="modal-title" id="modal-title">新增</h3>
+        <h3 class="modal-title" id="modal-title">{{title}}</h3>
     </div>
     <form name="add_form" novalidate>
         <div class="modal-body" id="modal-body">
@@ -93,39 +107,62 @@
                         <label class="col-sm-4 remove-padding control-label"><span class="text-require">*</span>客户名称：
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" name="yonghuming" class="form-control" ng-model="role.yonghuming" placeholder="客户名称" required>
-                            <div ng-show="add_form.yonghuming.$dirty && add_form.yonghuming.$invalid" class="invalid">
-                                <span ng-show="add_form.yonghuming.$error.required">请填写客户名称</span>
+                            <input type="text" name="name" class="form-control" ng-model="customer.name" placeholder="客户名称" required>
+                            <div ng-show="add_form.name.$dirty && add_form.name.$invalid" class="invalid">请填写客户名称
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <label class="col-sm-4 remove-padding control-label"><span class="text-require">*</span>密码：
+                        <label class="col-sm-4 remove-padding control-label"><span class="text-require">*</span>店面名称：
                         </label>
                         <div class="col-sm-8">
-                            <input type="password" name="yonghumima" class="form-control" ng-model="role.yonghumima" placeholder="密码" required ng-change="validPassword()">
-                            <div ng-show="add_form.yonghumima.$dirty && add_form.yonghumima.$invalid" class="invalid">
-                                <span ng-show="add_form.yonghumima.$error.required">请填写密码</span>
+                            <input type="text" name="storeName" class="form-control" ng-model="customer.storeName" placeholder="店面名称" required>
+                            <div ng-show="add_form.storeName.$dirty && add_form.storeName.$invalid" class="invalid">请填写店面名称
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="col-sm-4 remove-padding control-label"><span class="text-require">*</span>重复密码：
+                    </div><div class="col-sm-4">
+                        <label class="col-sm-4 remove-padding control-label"><span class="text-require">*</span>车贷金额：
                         </label>
                         <div class="col-sm-8">
-                            <input type="password" name="repeat_yonghumima" class="form-control" ng-model="role.repeat_yonghumima" placeholder="重复密码" required ng-change="validPassword()">
-                            <div ng-show="add_form.repeat_yonghumima.$dirty && add_form.repeat_yonghumima.$invalid" class="invalid">
-                                <span ng-show="add_form.repeat_yonghumima.$error.required">请填写重复密码</span>
+                            <input type="number" name="money" class="form-control" ng-model="customer.money" placeholder="车贷金额" required>
+                            <div ng-show="add_form.money.$dirty && add_form.money.$invalid" class="invalid">、
+                                请填写车贷金额
                             </div>
-                            <p ng-show="invalid_password && !add_form.repeat_yonghumima.$invalid" class="invalid">密码不一致</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button ng-disabled="add_form.$invalid || not_authority ||invalid_password" class="btn btn-primary" type="button" ng-click="ok()">确定</button>
+            <button ng-disabled="add_form.$invalid" class="btn btn-primary" type="button" ng-click="ok()">确定</button>
             <button class="btn btn-default" type="button" ng-click="cancel()">取消</button>
+        </div>
+    </form>
+</script>
+<!-- 详情窗口 -->
+<script type="text/ng-template" id="detail.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h3 class="modal-title" id="modal-title">{{title}}</h3>
+    </div>
+        <div class="modal-body" id="modal-body">
+            <table class="table table-bordered">
+                <tr>
+                    <td><b>客户名称</b></td>
+                    <td ng-bind="customer.name"></td>
+                </tr>
+                <tr>
+                    <td><b>店面名称</b></td>
+                    <td ng-bind="customer.storeName"></td>
+                </tr>
+                <tr>
+                    <td><b>车贷金额</b></td>
+                    <td ng-bind="customer.money"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" ng-click="cancel()">关闭</button>
         </div>
     </form>
 </script>

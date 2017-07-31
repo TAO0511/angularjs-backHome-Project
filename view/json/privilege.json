@@ -1,0 +1,35 @@
+[
+{
+    "id": "index",
+    "children": [],
+    "icon": "glyphicon glyphicon-home",
+    "name": "主页",
+    "url": "home",
+    "type": "1",
+    "paixu": 1
+},
+{
+    "id": "user",
+    "children": [],
+    "icon": "glyphicon glyphicon-user",
+    "name": "客户管理",
+    "url": "customerManage",
+    "type": "1",
+    "paixu": 2
+},
+{
+    "id": "system_manage",
+    "children": [
+    {
+        "id": "user_manage",
+        "name": "用户管理",
+        "url": "customerManage",
+        "type": "2",
+        "paixu": 1,
+        "parent": "system_manage"
+    }],
+    "icon": "glyphicon glyphicon-cog",
+    "name": "系统管理",
+    "type": "1",
+    "paixu": 3
+}]

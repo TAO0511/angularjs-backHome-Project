@@ -47,23 +47,76 @@ backHomeApp.factory("DPUtil", ["$rootScope", "UIUtil", "$http", "$filter",
                 $rootScope.loading = false;
             }
             var req = {
-                method: 'POST',
+                method:'POST',
                 url: _this.getContextPath() + params.url,
+                // url:"http://120.24.47.11:8080/washclothes"+ params.url,
                 data: params.data
             };
             if (params.headers) {
                 req.headers = params.headers;
             };
             // 判断是否session超时
-            /*$http({ method: "POST", url: _this.getContextPath() + "/sysUser/userinfo" }).then(function(data) {
-                if (!data || !data.data.data) {
-                    window.location.href = _this.getContextPath() + "/view/platformManageLogin.html";
+            /*$http({ method: "POST", url: _this.getContextPath() + "/has_logined.do" }).then(function(data) {
+                if (!data.data.success) {
+                    window.location.href = _this.getContextPath() + "/view/login.html";
                 };
             }, function(e) {
-                window.location.href = _this.getContextPath() + "/view/platformManageLogin.html";
+                window.location.href = _this.getContextPath() + "/view/login.html";
             });*/
             $http(req).then(function(data) {
-                if (data && data.data.code == 0) {
+                if (data) {
+                    params.success(data.data);
+                    $rootScope.loading = true;
+                } else {
+                    if (params.error && angular.isFunction(params.error)) {
+                        params.error(data.data);
+                    } else {
+                        UIUtil.alert({ content: data.data.message });
+                    };
+                    $rootScope.loading = true;
+                };
+            }, function(e) {
+                if (params.error && angular.isFunction(params.error)) {
+                    params.error(e);
+                } else {
+                    UIUtil.alert({ content: e });
+                };
+                $rootScope.loading = true;
+            });
+        };
+
+        /**
+         * [angular的post请求]
+         * @param {object} params [包含着请求参数的对象]
+         * @param  {[string]} url         [请求地址]
+         * @param  {[object]} data        [请求参数]     
+         * @param  {[function]} success [成功回调函数]
+         * @param  {[function]} error   [失败回调函数]
+         * @param  {[number]} status_load两个状态false和true，true是有加载状态的 
+         */
+        _this.httpGet = function(params) {
+            if (!params.status_load) { //默认打开
+                $rootScope.loading = false;
+            }
+            var req = {
+                method:'get',
+                url: _this.getContextPath() + params.url,
+                // url:"http://120.24.47.11:8080/washclothes"+ params.url,
+                params: params.data
+            };
+            if (params.headers) {
+                req.headers = params.headers;
+            };
+            // 判断是否session超时
+            /*$http({ method: "POST", url: _this.getContextPath() + "/has_logined.do" }).then(function(data) {
+                if (!data.data.success) {
+                    window.location.href = _this.getContextPath() + "/view/login.html";
+                };
+            }, function(e) {
+                window.location.href = _this.getContextPath() + "/view/login.html";
+            });*/
+            $http(req).then(function(data) {
+                if (data) {
                     params.success(data.data);
                     $rootScope.loading = true;
                 } else {

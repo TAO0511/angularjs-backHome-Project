@@ -6,7 +6,7 @@
  */
 
 var backHome = angular.module("backHomeApp");
-backHome.filter("zhongshenjieguo", [function() {
+backHome.filter("getGesult", [function() {
     return function(param) {
         var result = "";
         switch (param) {

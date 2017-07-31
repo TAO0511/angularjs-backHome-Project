@@ -80,6 +80,9 @@ li {
   padding: 0;
   margin: 0; }
 
+.blue-color {
+  color: #438eb9; }
+
 .no-border {
   border: none !important; }
 
@@ -139,6 +142,9 @@ li {
 
 .modal-sg {
   width: 52rem; }
+
+.modal-min-height {
+  min-height: 10rem; }
 
 .modal-pw {
   width: 22rem; }
@@ -208,8 +214,8 @@ table tr:hover {
 .top-2 {
   top: 2px; }
 
-.top-3 {
-  top: 3px; }
+.right-2 {
+  right: 2px !important; }
 
 .fixed-table {
   table-layout: fixed !important; }
@@ -284,10 +290,10 @@ table tr:hover {
   padding: 0 0.5rem; }
 
 .select {
-  background: url(../../images/memberCenter/select.png); }
+  background: url(../../images/select.png); }
 
 .unselect {
-  background: url(../../images/memberCenter/unselect.png); }
+  background: url(../../images/unselect.png); }
 
 .select,
 .unselect {
@@ -311,6 +317,8 @@ table tr:hover {
       padding: 0; }
   .query .row:last-child {
     margin-bottom: 0; }
+  .query .query-btn {
+    padding: 4px 14px; }
 
 /* ************************头部 */
 .top-container {
@@ -360,6 +368,15 @@ table tr:hover {
     background: #f5f7fa; }
     .left-container .active > a {
       color: #2b7dbc; }
+  .left-container .selected-item:after {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #438eb9;
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    right: 0px; }
   .left-container .open-child {
     background: #fff; }
     .left-container .open-child > a {
@@ -389,7 +406,7 @@ table tr:hover {
         vertical-align: center; }
     .left-container .menc .toggle {
       position: absolute;
-      right: 0.4rem;
+      right: 0.6rem;
       top: 0.5rem; }
   .left-container .menc-toggle {
     text-align: center;
@@ -468,10 +485,14 @@ table tr:hover {
     margin-left: 0.05rem; }
 
 /* ******************************角色-人员管理 */
+.select-list span {
+  cursor: pointer; }
+
 .user-role .select-box {
   display: inline-block;
   width: 1rem;
-  height: 1rem; }
+  height: 1rem;
+  cursor: pointer; }
   .user-role .select-box span {
     float: left;
     margin-top: 0.45rem;
@@ -601,5 +622,112 @@ table tr:hover {
   border: 1px solid #438eb9;
   /* background-color:#438eb9;
   color:#FFF; */ }
+
+.search-group {
+  position: relative;
+  font-size: 12px;
+  float: left;
+  z-index: 990; }
+  .search-group .search-input {
+    width: 100%;
+    border: 1px solid #cecece;
+    padding: 6px 10px 5px;
+    background-color: #FFF; }
+    .search-group .search-input .input-text {
+      text-align: left;
+      width: 100%;
+      display: block;
+      word-wrap: normal;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden; }
+      .search-group .search-input .input-text .placeholder {
+        color: #999; }
+    .search-group .search-input .icon {
+      position: absolute;
+      right: 8px;
+      top: 8px; }
+  .search-group .search-content {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1020;
+    float: left;
+    min-width: 160px;
+    padding: 10px 0 5px;
+    margin: 9px 0 0;
+    text-align: left;
+    line-height: 1.6;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    -webkit-animation-duration: .15s;
+    animation-duration: .15s; }
+    .search-group .search-content .out {
+      display: block;
+      content: "";
+      width: 0;
+      height: 0;
+      border-width: 8px;
+      border-style: dashed;
+      border-color: transparent;
+      border-top-width: 0;
+      border-bottom-color: #d9dadc;
+      border-bottom-style: solid;
+      position: absolute;
+      z-index: 1;
+      left: 10px;
+      top: -8px;
+      bottom: 0;
+      display: inline-block; }
+    .search-group .search-content .in {
+      display: block;
+      content: "";
+      width: 0;
+      height: 0;
+      border-width: 8px;
+      border-style: dashed;
+      border-color: transparent;
+      border-top-width: 0;
+      border-bottom-color: #FFF;
+      border-bottom-style: solid;
+      position: absolute;
+      z-index: 1;
+      left: 10px;
+      top: -7px;
+      bottom: 0;
+      display: inline-block; }
+    .search-group .search-content .content-input {
+      padding: 0 10px 5px; }
+      .search-group .search-content .content-input input {
+        padding: 5px 10px;
+        font-size: 12px;
+        margin-bottom: 8px;
+        height: 32px; }
+    .search-group .search-content .select-list {
+      margin: 0px;
+      padding: 0px;
+      list-style: none;
+      max-height: 150px;
+      overflow-y: scroll; }
+      .search-group .search-content .select-list li {
+        padding: 5px 10px; }
+      .search-group .search-content .select-list li:hover {
+        background-color: #1e90ff;
+        color: #FFF; }
+
+.select-item {
+  background-color: #1e90ff;
+  color: #FFF; }
+
+.search-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background: rgba(255, 255, 255, 0);
+  z-index: -1; }
 
 /*# sourceMappingURL=common.css.map */

@@ -1,4 +1,4 @@
-// module.exports = function(backHomeApp) {
+// 动态设置内容最小高度
 backHomeApp.directive("xyMaxheight", [function() {
     return {
         restrict: "A",
@@ -8,7 +8,7 @@ backHomeApp.directive("xyMaxheight", [function() {
         }
     }
 }]);
-
+// 左侧菜单栏
 backHomeApp.directive("toggleMenc", [function() {
     return {
         restrict: "A",
@@ -246,7 +246,7 @@ backHomeApp.directive("pccUnite", ["$http", function($http) {
     };
     return directive;
 }]);
-
+// 复选内容
 backHomeApp.directive("checkAllBox", [function() {
     return {
         restrict: "A",
@@ -294,6 +294,7 @@ backHomeApp.directive("checkAllBox", [function() {
         }
     }
 }]);
+//单选内容
 backHomeApp.directive("simpleSelect", [function() {
     return {
         restrict: "A",
@@ -311,22 +312,6 @@ backHomeApp.directive("simpleSelect", [function() {
         }
     };
 }]);
-backHomeApp.directive("formatDate", [function() {
-    return {
-        restrict: "A",
-        template: "<td>{{riqi | date:'yyyy-MM-dd'}}</td>",
-        replace: true,
-        link: function(scope, element, attr) {
-            if (attr.fdate) {
-                scope.riqi = new Date(attr.fdate);
-            } else {
-                scope.riqi = "";
-            }
-
-        }
-    };
-}]);
-
 /**
  * [tabs切换]
  */
@@ -367,6 +352,7 @@ backHomeApp.directive("tabs", [function() {
     };
     return directive;
 }]);
+// 手风琴
 backHomeApp.directive("accordionPanel", [function() {
     var directive = {
         restrict: "A",

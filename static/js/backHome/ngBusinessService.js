@@ -11,7 +11,28 @@ backHomeApp.factory("customerService", ["DPUtil", "$q",
                         rows: param.rows
                     },
                     success: function(datas) {
-                        defered.resolve(DPUtil.addNumber(datas, param.page, param.rows));
+                        defered.resolve(datas);
+                    }
+                });
+                return defered.promise;
+            }
+
+        };
+        return _this;
+    }
+]);
+/*--------------------------------用户service---------------------------------------*/
+backHomeApp.factory("userService", ["DPUtil", "$q",
+    function(DPUtil, $q) {
+        var _this = {
+            myPrivilegeList: function(param) {
+                var defered = $q.defer();
+                DPUtil.httpPost({
+                    url: "/view/json/privilege.json",
+                    data: {
+                    },
+                    success: function(datas) {
+                        defered.resolve(datas);
                     }
                 });
                 return defered.promise;

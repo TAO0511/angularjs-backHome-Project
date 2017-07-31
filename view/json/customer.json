@@ -1,12 +1,11 @@
 ﻿{
     "code": 0,
     "rows": [{
-        "kehumingcheng":"李亚龙",
-        "dianmianmingcheng":"广物德远店",
-        "xinghao":"DS5LS",
-        "chedaijine":"10000000",
-        "qishu":"36期",
-        "zhongshenjieguo":1
+        "name":"李亚龙",
+        "storeName":"广物德远店",
+        "money":10000000,
+        "periods":"36期",
+        "result":1
     }],
     "total": 1
 }

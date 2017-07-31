@@ -4,7 +4,53 @@
 // module.exports = function(backHomeApp) {
 // 整个工程的主模块，依赖ngRoute子模块（第三方插件）
 var backHomeApp = angular.module("backHomeApp", ['ui.router', 'ui.bootstrap']);
-
+//权限控制
+backHomeApp.run(['$rootScope', '$location','userService',
+    function($rootScope, $location,userService) {
+        $rootScope.$on('$stateChangeSuccess', function(evt, next, current) {
+            var is_can = false;
+            //判断是否加载权限菜单
+            if (!$rootScope.mencs) {
+                userService.myPrivilegeList().then(function(data) {
+                $rootScope.datas = data;
+                $rootScope.mencs = [];
+                for (var i = 0; i < data.data.length; i++) {
+                    for (var j = 0; j < data.data[i].children.length; j++) {
+                        $rootScope.mencs.push(data.data[i].children[j].url);
+                        if ("/"+data.data[i].children[j].url == next.url) {
+                            is_can = true;
+                            data.data[i].active = true;
+                            data.data[i].current = true;
+                            data.data[i].child_open = true;
+                            data.data[i].children[j].active = true;
+                        }
+                    }
+                    if ("/"+data.data[i].url == next.url) {
+                        is_can = true;
+                        data.data[i].active = true;
+                        data.data[i].current = true;
+                    }
+                }
+                if (!is_can) {
+                    $location.path("/home");
+                }
+                });
+            } else {
+                if (threeRoot(next.url)) {
+                    is_can = true;
+                }
+                for (var i = 0; i < $rootScope.mencs.length; i++) {
+                    if ("/"+$rootScope.mencs[i] == next.url) {
+                        is_can = true;
+                    }
+                }
+                if (!is_can) {
+                    $location.path("/home");
+                }
+            }
+        });
+    }
+]);
 // ngRoute提供的route模块的配置
 backHomeApp.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/home");

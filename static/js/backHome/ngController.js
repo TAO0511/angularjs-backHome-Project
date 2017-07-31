@@ -67,34 +67,30 @@ backHomeApp.controller('homeController', ['$scope', '$location',
 /*-------------------------------------------客户管理--------------------------------*/
 backHomeApp.controller('customerManageCtrl', ['$scope', "DPUtil", "customerService",  "$uibModal", "UIUtil",
     function($scope, DPUtil, customerService, $uibModal, UIUtil) {
-        $scope.role = {};
-        DPUtil.initPage($scope,$scope.role);
+        $scope.conditions = {};//查询的参数
+        // 初始化分页组件
+        DPUtil.initPage($scope,$scope.conditions);
         /**
          * [query 查询]
          */
-        $scope.query = function(type) {
-            if (type) {
-                $scope.role.page = 1;
-            };
-            customerService.list($scope.role).then(function(data) {
+        $scope.query = function() {
+            customerService.list($scope.conditions).then(function(data) {
                 $scope.data = data.rows;
                 $scope.total = data.total;
             });
         };
         $scope.query();
-
-
         /**
          * [changePageSize 分页数量]
          */
         $scope.changePageSize = function() {
-            $scope.role.rows = $scope.page_size.value;
-            $scope.role.page = 1;
+            $scope.conditions.rows = $scope.page_size.value;
+            $scope.conditions.page = 1;
             $scope.query();
         };
 
         $scope.clearQuery = function(){
-            DPUtil.cleanQuery($scope.role);
+            DPUtil.cleanQuery($scope.conditions);
         }
 
         /**
@@ -107,37 +103,25 @@ backHomeApp.controller('customerManageCtrl', ['$scope', "DPUtil", "customerServi
         /**
          * [update]
          */
-        $scope.update = function() {
-            var role = DPUtil.getSelect($scope.data);
-            if (role.length == 0) {
-                UIUtil.alert({ content: "请选择一个账号！" });
-            } else {
-                customerService.find(role.id).then(function(data) {
-                    if (data.code == 0) {
-                        _fn.showUpdate(data.data);
-                    };
-                });
-            }
+        $scope.update = function(data) {
+            _fn.showUpdate(data);
         };
-
+        /**
+         * [detail]
+         */
+        $scope.detail = function(data) {
+            _fn.showDetail(data);
+        };
         /**
          * [del 删除]
          */
-        $scope.del = function() {
-            var role = DPUtil.getSelect($scope.data);
-            if (role.length == 0) {
-                UIUtil.alert({ content: "请选择一个账号！" });
-            } else {
-                UIUtil.comfirm({
-                    content: "是否删除选定的账号？",
-                    ok: function() {
-                        customerService.del(role.id).then(function() {
-                            $scope.query();
-                            UIUtil.alert({ content: "删除成功！" });
-                        });
-                    }
-                });
-            }
+        $scope.delete = function() {
+            UIUtil.comfirm({
+                content: "是否删除选定的账号？",
+                ok: function() {
+                    UIUtil.alert({ content: "删除成功！" });
+                }
+            });
         };
 
         /**
@@ -146,7 +130,8 @@ backHomeApp.controller('customerManageCtrl', ['$scope', "DPUtil", "customerServi
          */
         var _fn = {
             /**
-             * [showAdd 显示窗口]
+             * [showAdd 显示新增窗口]
+             * @return {[type]} [description]
              */
             showAdd: function() {
                 $uibModal.open({
@@ -157,23 +142,62 @@ backHomeApp.controller('customerManageCtrl', ['$scope', "DPUtil", "customerServi
                     size: "lg",
                     controller: ["$scope", "$uibModalInstance",
                         function(add_scope, uibModal) {
+                            add_scope.title = "新增";
                             add_scope.cancel = function(){
+                                uibModal.close();
+                            }
+                            add_scope.ok = function(){
                                 uibModal.close();
                             }
                         }
                     ]
                 });
             },
+            /**
+             * [showUpdate 显示修改窗口]
+             * @param  {[type]} data [修改对象的数据]
+             * @return {[type]}      [description]
+             */
             showUpdate: function(data) {
                 $uibModal.open({
                     animation: true,
-                    templateUrl: 'update.html',
+                    templateUrl: 'add.html',
                     keyboard: false,
                     backdrop: 'static',
                     size: "lg",
                     controller: ["$scope", "$uibModalInstance",
                         function(update_scope, uibModal) {
-                            
+                            update_scope.title = "修改";
+                            update_scope.customer = data;
+                            update_scope.cancel = function(){
+                                uibModal.close();
+                            }
+                            update_scope.ok = function(){
+                                uibModal.close();
+                            }
+                        }
+                    ]
+                });
+            },
+            /**
+             * [showDetail 显示修改窗口]
+             * @param  {[type]} data [修改对象的数据]
+             * @return {[type]}      [description]
+             */
+            showDetail: function(data) {
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: 'detail.html',
+                    keyboard: false,
+                    backdrop: 'static',
+                    size: "md",
+                    controller: ["$scope", "$uibModalInstance",
+                        function(detail_scope, uibModal) {
+                            detail_scope.title = "详情";
+                            detail_scope.customer = data;
+                            detail_scope.cancel = function(){
+                                uibModal.close();
+                            }
                         }
                     ]
                 });
