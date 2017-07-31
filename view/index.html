@@ -61,7 +61,7 @@
                     </a>
                 </li> -->
                 <li class="menc" ng-repeat="menc in datas" ng-class="{'open-child':menc.active}">
-                    <a href="javascript:void(0)" ng-click="toggleMenc(menc)" ng-class="{'selected-item':menc.active && !menc.child_open}">
+                    <a href="javascript:void(0)" ng-click="toggleMenc(menc)" ng-class="{'selected-item':menc.active && menc.current && !menc.child_open}">
                         <span ng-class="menc.icon"></span>
                         <span ng-bind="menc.name"></span>
                         <span ng-if="menc.children.length>0">
