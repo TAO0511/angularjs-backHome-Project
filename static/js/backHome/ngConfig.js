@@ -3,7 +3,7 @@
  */
 // module.exports = function(backHomeApp) {
 // 整个工程的主模块，依赖ngRoute子模块（第三方插件）
-var backHomeApp = angular.module("backHomeApp", ['ui.router', 'ui.bootstrap']);
+var backHomeApp = angular.module("backHomeApp", ['ui.router', 'ui.bootstrap','common.service','common.filter','common.directive','backHome.filter','backHome.service','backHome.ctrl']);
 //权限控制
 backHomeApp.run(['$rootScope', '$location','userService',
     function($rootScope, $location,userService) {

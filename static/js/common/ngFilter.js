@@ -1,4 +1,5 @@
-backHomeApp.filter("formatDate",[function(){
+var commonFilter = angular.module("common.filter",[]);
+commonFilter.filter("formatDate",[function(){
 	var result = function(date){
 		if (date) {
 			return date.substring(0,10);
@@ -7,8 +8,7 @@ backHomeApp.filter("formatDate",[function(){
 	};
 	return result;
 }]);
-
-backHomeApp.filter("handleDate",[function(){
+commonFilter.filter("handleDate",[function(){
 	var result = function(date){
 		if (date) {
 			var year = date.substring(0,4);

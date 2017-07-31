@@ -1,5 +1,6 @@
+var backHomeService = angular.module("backHome.service",['common.service']);
 /*--------------------------------客户service---------------------------------------*/
-backHomeApp.factory("customerService", ["DPUtil", "$q",
+backHomeService.factory("customerService", ["DPUtil", "$q",
     function(DPUtil, $q) {
         var _this = {
             list: function(param) {
@@ -22,7 +23,7 @@ backHomeApp.factory("customerService", ["DPUtil", "$q",
     }
 ]);
 /*--------------------------------用户service---------------------------------------*/
-backHomeApp.factory("userService", ["DPUtil", "$q",
+backHomeService.factory("userService", ["DPUtil", "$q",
     function(DPUtil, $q) {
         var _this = {
             myPrivilegeList: function(param) {

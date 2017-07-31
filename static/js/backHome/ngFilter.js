@@ -5,8 +5,8 @@
  * @version $Id$
  */
 
-var backHome = angular.module("backHomeApp");
-backHome.filter("getGesult", [function() {
+var backHomeFilter = angular.module("backHome.filter",[]);
+backHomeFilter.filter("getGesult", [function() {
     return function(param) {
         var result = "";
         switch (param) {

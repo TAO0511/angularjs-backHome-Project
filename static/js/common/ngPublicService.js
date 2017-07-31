@@ -1,4 +1,3 @@
-// module.exports = function(backHomeApp) {
 /*
  * 自定义服务。all services
  * @Date 2016-08-20
@@ -6,7 +5,8 @@
 /**
  * [数据相关的公共service]
  */
-backHomeApp.factory("DPUtil", ["$rootScope", "UIUtil", "$http", "$filter",
+var commonService = angular.module("common.service",[]);
+commonService.factory("DPUtil", ["$rootScope", "UIUtil", "$http", "$filter",
     function($rootScope, UIUtil, $http, $filter) {
         var _this = {};
         /**
@@ -276,7 +276,7 @@ backHomeApp.factory("DPUtil", ["$rootScope", "UIUtil", "$http", "$filter",
         return _this;
     }
 ]);
-backHomeApp.factory("UIUtil", ["$rootScope", "$uibModal",
+commonService.factory("UIUtil", ["$rootScope", "$uibModal",
     function($rootScope, $uibModal) {
         /*数据页面操作处理service*/
         /**

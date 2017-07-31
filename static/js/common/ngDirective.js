@@ -1,5 +1,6 @@
+var commonDirective = angular.module("common.directive",[]);
 // 动态设置内容最小高度
-backHomeApp.directive("xyMaxheight", [function() {
+commonDirective.directive("xyMaxheight", [function() {
     return {
         restrict: "A",
         link: function(scope, element, attr) {
@@ -9,7 +10,7 @@ backHomeApp.directive("xyMaxheight", [function() {
     }
 }]);
 // 左侧菜单栏
-backHomeApp.directive("toggleMenc", [function() {
+commonDirective.directive("toggleMenc", [function() {
     return {
         restrict: "A",
         link: function(scope, element, attr) {
@@ -112,7 +113,7 @@ backHomeApp.directive("toggleMenc", [function() {
 /**
  * [省市区3级联动]
  */
-backHomeApp.directive("pccUnite", ["$http", function($http) {
+commonDirective.directive("pccUnite", ["$http", function($http) {
     var directive = {
         restrict: "EA",
         templateUrl: "backHomeTpl/directiveTpl/PCCUnite.html",
@@ -247,7 +248,7 @@ backHomeApp.directive("pccUnite", ["$http", function($http) {
     return directive;
 }]);
 // 复选内容
-backHomeApp.directive("checkAllBox", [function() {
+commonDirective.directive("checkAllBox", [function() {
     return {
         restrict: "A",
         scope: true,
@@ -295,7 +296,7 @@ backHomeApp.directive("checkAllBox", [function() {
     }
 }]);
 //单选内容
-backHomeApp.directive("simpleSelect", [function() {
+commonDirective.directive("simpleSelect", [function() {
     return {
         restrict: "A",
         link: function(scope, element, attr) {
@@ -315,7 +316,7 @@ backHomeApp.directive("simpleSelect", [function() {
 /**
  * [tabs切换]
  */
-backHomeApp.directive("tabs", [function() {
+commonDirective.directive("tabs", [function() {
     var directive = {
         restrict: "A",
         templateUrl: "",
@@ -353,7 +354,7 @@ backHomeApp.directive("tabs", [function() {
     return directive;
 }]);
 // 手风琴
-backHomeApp.directive("accordionPanel", [function() {
+commonDirective.directive("accordionPanel", [function() {
     var directive = {
         restrict: "A",
         link: function(scope, element, attrs) {

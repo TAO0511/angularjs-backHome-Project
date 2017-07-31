@@ -1,5 +1,6 @@
 /*---------------------------------------主程序入口-------------------------------*/
-backHomeApp.controller('indexController', ["$scope", "$rootScope", "$location", "$uibModal", "DPUtil", "UIUtil","$state",
+var backHomeCtrl = angular.module("backHome.ctrl",[]);
+backHomeCtrl.controller('indexController', ["$scope", "$rootScope", "$location", "$uibModal", "DPUtil", "UIUtil","$state",
     function($scope, $rootScope, $location, $uibModal, DPUtil, UIUtil,$state) {
         //通用路径跳转
         $scope.pathUrl = function(url) {
@@ -59,13 +60,13 @@ backHomeApp.controller('indexController', ["$scope", "$rootScope", "$location", 
 ]);
 
 /*-------------------------------------------主页--------------------------------*/
-backHomeApp.controller('homeController', ['$scope', '$location',
+backHomeCtrl.controller('homeController', ['$scope', '$location',
     function($scope, $location) {
 
     }
 ]);
 /*-------------------------------------------客户管理--------------------------------*/
-backHomeApp.controller('customerManageCtrl', ['$scope', "DPUtil", "customerService",  "$uibModal", "UIUtil",
+backHomeCtrl.controller('customerManageCtrl', ['$scope', "DPUtil", "customerService",  "$uibModal", "UIUtil",
     function($scope, DPUtil, customerService, $uibModal, UIUtil) {
         $scope.conditions = {};//查询的参数
         // 初始化分页组件
@@ -206,7 +207,7 @@ backHomeApp.controller('customerManageCtrl', ['$scope', "DPUtil", "customerServi
     }
 ]);
 /*-------------------------------------------用户管理--------------------------------*/
-backHomeApp.controller('userManageCtrl', ['$scope', "DPUtil", "customerService",  "$uibModal", "UIUtil",
+backHomeCtrl.controller('userManageCtrl', ['$scope', "DPUtil", "customerService",  "$uibModal", "UIUtil",
     function($scope, DPUtil, customerService, $uibModal, UIUtil) {
         $scope.conditions = {};//查询的参数
         // 初始化分页组件
